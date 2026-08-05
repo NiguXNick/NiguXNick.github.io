@@ -1,0 +1,1103 @@
+﻿<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nicolas Neves — Tech Leader</title>
+<meta name="description" content="Tech Leader e cientista da computação. Sistemas internos, plataformas de IA e integrações — um grafo navegável dos sistemas que construí.">
+<meta name="color-scheme" content="dark light">
+
+<meta property="og:title" content="Nicolas Neves — Tech Leader">
+<meta property="og:description" content="Tech Leader e cientista da computação. Sistemas internos, plataformas de IA e integrações — um grafo navegável dos sistemas que construí.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://niguxnick.github.io/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='28' r='11' fill='%23a06cf5'/%3E%3Ccircle cx='24' cy='72' r='8' fill='%23a06cf5' opacity='.65'/%3E%3Ccircle cx='76' cy='72' r='8' fill='%23a06cf5' opacity='.65'/%3E%3Cg stroke='%23a06cf5' stroke-width='4' opacity='.5'%3E%3Cline x1='50' y1='28' x2='24' y2='72'/%3E%3Cline x1='50' y1='28' x2='76' y2='72'/%3E%3Cline x1='24' y1='72' x2='76' y2='72'/%3E%3C/g%3E%3C/svg%3E">
+
+<style>
+/* ─────────────────────────────────────────────────────────────
+   Identidade: Obsidian (acervo DESIGN.md)
+   Tokens OKLCH gerados pela ficha; tipografia adaptada ao
+   contexto editorial deste site (Bricolage Grotesque + IBM Plex Mono).
+   ───────────────────────────────────────────────────────────── */
+
+:root[data-theme="dark"] {
+  --bg:            oklch(0.1650 0.0150 300);
+  --bg-elev:       oklch(0.1950 0.0180 300);
+  --fg:            oklch(0.9150 0.0130 300);
+  --primary:       oklch(0.6900 0.1800 300);
+  --primary-soft:  oklch(0.6900 0.1800 300 / 0.14);
+  --secondary:     oklch(0.2500 0.0250 300);
+  --muted:         oklch(0.2150 0.0200 300);
+  --muted-fg:      oklch(0.7000 0.0250 300);
+  --accent:        oklch(0.3100 0.0650 300);
+  --accent-fg:     oklch(0.9000 0.0400 300);
+  --border:        oklch(0.2800 0.0280 300);
+  --ok:            oklch(0.7200 0.1500 150);
+  --warn:          oklch(0.7800 0.1500 80);
+  --glow:          oklch(0.6900 0.1800 300 / 0.20);
+  --grid:          oklch(0.9150 0.0130 300 / 0.035);
+}
+
+:root[data-theme="light"] {
+  --bg:            oklch(0.9860 0.0040 300);
+  --bg-elev:       oklch(1 0 0);
+  --fg:            oklch(0.2400 0.0180 300);
+  --primary:       oklch(0.5400 0.2000 300);
+  --primary-soft:  oklch(0.5400 0.2000 300 / 0.10);
+  --secondary:     oklch(0.9500 0.0150 300);
+  --muted:         oklch(0.9650 0.0090 300);
+  --muted-fg:      oklch(0.5200 0.0250 300);
+  --accent:        oklch(0.9250 0.0300 300);
+  --accent-fg:     oklch(0.3800 0.1400 300);
+  --border:        oklch(0.9050 0.0150 300);
+  --ok:            oklch(0.5500 0.1400 150);
+  --warn:          oklch(0.6200 0.1400 70);
+  --glow:          oklch(0.5400 0.2000 300 / 0.12);
+  --grid:          oklch(0.2400 0.0180 300 / 0.045);
+}
+
+:root {
+  --radius: 0.375rem;
+  --sans: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --measure: 68ch;
+  --pad: clamp(1.25rem, 5vw, 4.5rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: 15px;
+  line-height: 1.65;
+  overflow-x: hidden;
+  transition: background .4s ease, color .4s ease;
+}
+
+/* Atmosfera: malha de grafo ao fundo + brilho roxo no topo */
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 20%, transparent 75%);
+  pointer-events: none;
+  z-index: 0;
+}
+body::after {
+  content: "";
+  position: fixed; top: -30vh; left: 50%; translate: -50% 0;
+  width: 120vw; height: 80vh;
+  background: radial-gradient(ellipse at center, var(--glow), transparent 62%);
+  pointer-events: none; z-index: 0;
+}
+
+main, header, footer { position: relative; z-index: 1; }
+
+::selection { background: var(--primary); color: var(--bg); }
+
+a { color: inherit; }
+
+/* ── Navegação ───────────────────────────────────────────── */
+header {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; gap: 1rem;
+  padding: .85rem var(--pad);
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in oklab, var(--bg) 82%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+}
+.brand {
+  font-family: var(--sans); font-weight: 700; letter-spacing: -.02em;
+  font-size: .95rem; margin-right: auto; display: flex; align-items: center; gap: .55rem;
+}
+.brand .dot {
+  width: 9px; height: 9px; border-radius: 50%; background: var(--primary);
+  box-shadow: 0 0 0 4px var(--primary-soft);
+  animation: pulse 3.2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { box-shadow: 0 0 0 4px var(--primary-soft); } 50% { box-shadow: 0 0 0 9px transparent; } }
+@media (prefers-reduced-motion: reduce) { .brand .dot { animation: none; } }
+
+nav { display: flex; gap: .25rem; align-items: center; }
+nav a {
+  text-decoration: none; font-size: .78rem; color: var(--muted-fg);
+  padding: .4rem .6rem; border-radius: var(--radius);
+  transition: color .18s, background .18s;
+}
+nav a:hover, nav a:focus-visible { color: var(--fg); background: var(--muted); }
+@media (max-width: 780px) { nav a[data-optional] { display: none; } }
+
+/* Abaixo de 620px o header quebra em duas linhas e a navegação rola
+   na horizontal — sem isso o botão de tema é empurrado para fora da tela. */
+@media (max-width: 620px) {
+  header { flex-wrap: wrap; row-gap: .45rem; }
+  nav {
+    order: 3; width: 100%; overflow-x: auto; overscroll-behavior-x: contain;
+    scrollbar-width: none; -ms-overflow-style: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav a { white-space: nowrap; min-height: 40px; display: inline-flex; align-items: center; }
+  nav a[data-optional] { display: inline-flex; }
+  .theme-btn { min-height: 40px; }
+}
+
+.theme-btn {
+  font: inherit; font-size: .78rem; cursor: pointer;
+  background: var(--muted); color: var(--fg);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: .38rem .7rem; min-height: 34px;
+  transition: border-color .18s, background .18s;
+}
+.theme-btn:hover { border-color: var(--primary); }
+
+/* ── Estrutura ───────────────────────────────────────────── */
+section { padding: clamp(4rem, 9vw, 7.5rem) var(--pad); }
+.wrap { max-width: 1140px; margin-inline: auto; }
+
+.eyebrow {
+  font-size: .72rem; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--primary); display: flex; align-items: center; gap: .6rem; margin-bottom: 1.1rem;
+}
+.eyebrow::after { content: ""; height: 1px; flex: 1; background: linear-gradient(90deg, var(--border), transparent); }
+
+h1, h2, h3 { font-family: var(--sans); letter-spacing: -.035em; line-height: 1.02; margin: 0; }
+h2 { font-size: clamp(1.9rem, 4.4vw, 3rem); font-weight: 700; margin-bottom: 1rem; }
+h3 { font-size: 1.05rem; font-weight: 600; letter-spacing: -.02em; }
+.lede { color: var(--muted-fg); max-width: var(--measure); font-size: .95rem; }
+
+/* ── Hero ────────────────────────────────────────────────── */
+.hero { padding-top: clamp(3.5rem, 9vw, 6.5rem); padding-bottom: clamp(3rem, 7vw, 5rem); }
+.hero h1 {
+  font-size: clamp(2.9rem, 11vw, 7.5rem);
+  font-weight: 800; margin: .6rem 0 1.4rem;
+  text-wrap: balance;
+}
+.hero h1 .accent {
+  background: linear-gradient(100deg, var(--primary), color-mix(in oklab, var(--primary) 45%, var(--fg)));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero-sub { font-size: clamp(.95rem, 2vw, 1.1rem); max-width: 56ch; color: var(--muted-fg); }
+.hero-sub strong { color: var(--fg); font-weight: 500; }
+
+.tagline {
+  display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 2rem;
+}
+.tagline span {
+  font-size: .74rem; padding: .35rem .7rem; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--bg-elev); color: var(--muted-fg);
+}
+.tagline span b { color: var(--primary); font-weight: 500; }
+
+.stat-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1px; margin-top: 3.2rem;
+  background: var(--border); border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden;
+}
+.stat { background: var(--bg); padding: 1.1rem 1.2rem; }
+.stat .n { font-family: var(--sans); font-size: 1.85rem; font-weight: 700; letter-spacing: -.04em; display: block; }
+.stat .l { font-size: .72rem; color: var(--muted-fg); }
+
+/* == Cards em grade ================================== */
+.grade-cards {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 1rem; margin-top: 2.5rem;
+}
+.card-info {
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--bg-elev); padding: 1.4rem;
+  position: relative; overflow: hidden;
+  transition: border-color .25s, transform .25s;
+}
+.card-info::before {
+  content: ""; position: absolute; inset: 0 auto 0 0; width: 2px;
+  background: var(--primary); scale: 1 0; transform-origin: bottom;
+  transition: scale .3s ease;
+}
+.card-info:hover { border-color: color-mix(in oklab, var(--primary) 40%, var(--border)); transform: translateY(-2px); }
+.card-info:hover::before { scale: 1 1; }
+.card-info .num {
+  font-family: var(--sans); font-size: .75rem; color: var(--primary);
+  font-weight: 600; letter-spacing: .06em;
+}
+.card-info h3 { margin: .35rem 0 .6rem; }
+.card-info p { margin: 0; font-size: .84rem; color: var(--muted-fg); line-height: 1.6; }
+.card-info p em { color: var(--fg); font-style: normal; }
+
+/* ── Grafo ───────────────────────────────────────────────── */
+.grafo-shell {
+  margin-top: 2.5rem; border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--bg-elev); overflow: hidden;
+  display: grid; grid-template-columns: 1fr 320px;
+}
+@media (max-width: 900px) { .grafo-shell { grid-template-columns: 1fr; } }
+
+.grafo-bar {
+  grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .4rem; align-items: center;
+  padding: .7rem .9rem; border-bottom: 1px solid var(--border);
+  background: color-mix(in oklab, var(--muted) 55%, transparent);
+}
+.chip {
+  font: inherit; font-size: .73rem; cursor: pointer;
+  border: 1px solid var(--border); border-radius: 999px;
+  background: transparent; color: var(--muted-fg);
+  padding: .3rem .75rem; min-height: 30px;
+  transition: all .18s;
+}
+.chip:hover { color: var(--fg); border-color: var(--muted-fg); }
+@media (max-width: 620px) { .chip { min-height: 40px; padding-inline: .9rem; } }
+.chip[aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: var(--bg); }
+:root[data-theme="light"] .chip[aria-pressed="true"] { color: #fff; }
+.grafo-hint { margin-left: auto; font-size: .7rem; color: var(--muted-fg); }
+@media (max-width: 620px) { .grafo-hint { display: none; } }
+
+#grafo-canvas { display: block; width: 100%; height: 520px; cursor: grab; touch-action: none; }
+#grafo-canvas:active { cursor: grabbing; }
+@media (max-width: 900px) { #grafo-canvas { height: 420px; } }
+
+.grafo-info {
+  border-left: 1px solid var(--border); padding: 1.3rem;
+  display: flex; flex-direction: column; gap: .8rem;
+  min-height: 0; overflow-y: auto;
+}
+@media (max-width: 900px) { .grafo-info { border-left: 0; border-top: 1px solid var(--border); } }
+.grafo-info .selo {
+  align-self: flex-start; font-size: .68rem; padding: .22rem .55rem; border-radius: 999px;
+  border: 1px solid currentColor; letter-spacing: .04em;
+}
+.selo-principal { color: var(--ok); }
+.selo-equipe    { color: var(--warn); }
+.selo-neutro    { color: var(--muted-fg); }
+.grafo-info h3 { font-size: 1.3rem; font-weight: 700; }
+.grafo-info p { margin: 0; font-size: .84rem; color: var(--muted-fg); line-height: 1.6; }
+.grafo-info .techs { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .2rem; }
+.grafo-info .techs span {
+  font-size: .68rem; padding: .18rem .5rem; border-radius: var(--radius);
+  background: var(--muted); color: var(--muted-fg);
+}
+.grafo-info .placeholder { color: var(--muted-fg); font-size: .82rem; }
+
+/* ── Projetos ────────────────────────────────────────────── */
+.proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; margin-top: 2.5rem; }
+.proj {
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--bg-elev); padding: 1.3rem;
+  display: flex; flex-direction: column; gap: .6rem;
+  transition: border-color .25s, transform .25s;
+}
+.proj:hover { border-color: color-mix(in oklab, var(--primary) 45%, var(--border)); transform: translateY(-2px); }
+.proj-head { display: flex; align-items: baseline; justify-content: space-between; gap: .6rem; }
+.proj-head h3 { font-size: 1.1rem; font-weight: 700; }
+.proj .selo { font-size: .64rem; padding: .18rem .5rem; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+.proj p { margin: 0; font-size: .83rem; color: var(--muted-fg); line-height: 1.6; }
+.proj .techs { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: auto; padding-top: .5rem; }
+.proj .techs span { font-size: .67rem; padding: .16rem .45rem; border-radius: var(--radius); background: var(--muted); color: var(--muted-fg); }
+
+/* ── Terminal ────────────────────────────────────────────── */
+.term {
+  margin-top: 2.5rem; border: 1px solid var(--border); border-radius: var(--radius);
+  background: color-mix(in oklab, var(--bg) 60%, #000 8%); overflow: hidden;
+  box-shadow: 0 24px 60px -30px var(--glow);
+}
+:root[data-theme="light"] .term { background: oklch(0.2000 0.0180 300); }
+.term-bar {
+  display: flex; align-items: center; gap: .45rem; padding: .6rem .85rem;
+  border-bottom: 1px solid oklch(0.3000 0.0280 300);
+  background: oklch(0.2200 0.0200 300);
+}
+.term-bar i { width: 10px; height: 10px; border-radius: 50%; background: oklch(0.4000 0.0300 300); }
+.term-bar i:first-child { background: oklch(0.6900 0.1800 300); }
+.term-bar span { font-size: .7rem; color: oklch(0.6500 0.0250 300); margin-left: .5rem; }
+.term-body {
+  padding: 1.1rem; height: 330px; overflow-y: auto;
+  font-size: .82rem; line-height: 1.7; color: oklch(0.8800 0.0130 300);
+  scrollbar-width: thin;
+}
+.term-body .cmd { color: oklch(0.7600 0.1600 300); }
+.term-body .ok { color: oklch(0.7500 0.1400 150); }
+.term-body .dim { color: oklch(0.6000 0.0250 300); }
+.term-body .warn { color: oklch(0.8000 0.1400 80); }
+.term-line { white-space: pre-wrap; word-break: break-word; }
+.term-input-row { display: flex; align-items: center; gap: .5rem; }
+.term-input-row .ps1 { color: oklch(0.7600 0.1600 300); }
+#term-input {
+  flex: 1; background: transparent; border: 0; outline: 0;
+  color: oklch(0.9200 0.0130 300); font: inherit; font-size: .82rem; padding: 0;
+  caret-color: oklch(0.6900 0.1800 300);
+}
+
+/* ── Rodapé ──────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border); padding: 3rem var(--pad) calc(3rem + env(safe-area-inset-bottom));
+  display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: space-between; align-items: flex-end;
+}
+footer .frase { font-family: var(--sans); font-size: 1.15rem; max-width: 34ch; letter-spacing: -.02em; }
+footer .links { display: flex; gap: .5rem; flex-wrap: wrap; }
+footer .links a {
+  text-decoration: none; font-size: .78rem; color: var(--muted-fg);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: .45rem .85rem; min-height: 36px; display: inline-flex; align-items: center;
+  transition: all .18s;
+}
+footer .links a:hover { color: var(--fg); border-color: var(--primary); }
+footer .meta { width: 100%; font-size: .7rem; color: var(--muted-fg); padding-top: 1rem; border-top: 1px solid var(--border); }
+
+/* ── Revelação ao rolar ──────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 3px; }
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand"><span class="dot" aria-hidden="true"></span> nicolas.neves</div>
+  <nav>
+    <a href="#stack">stack</a>
+    <a href="#grafo">grafo</a>
+    <a href="#projetos">projetos</a>
+    <a href="#terminal" data-optional>terminal</a>
+  </nav>
+  <button class="theme-btn" id="theme-btn" aria-label="Alternar tema">claro</button>
+</header>
+
+<main>
+
+<!-- ─────────────── HERO ─────────────── -->
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">tech leader · engenharia de software</div>
+    <h1>Construo o<br>que a empresa<br><span class="accent">usa por dentro.</span></h1>
+    <p class="hero-sub">
+      O portal que substitui a planilha. A API que faz dois sistemas que nunca se falaram
+      conversarem. O painel que transforma dado bruto em decisão.<br><br>
+      Cientista da computação, <strong>Tech Leader</strong> — conduzo projeto de ponta a ponta:
+      arquitetura, decisão técnica e time. E continuo escrevendo o código.<br><br>
+      <strong>Backend é onde moro. Frontend é onde entrego. Produto é como penso.</strong>
+    </p>
+
+    <div class="tagline">
+      <span><b>Python</b> · Django · DRF</span>
+      <span><b>TypeScript</b> · Next.js · Angular</span>
+      <span><b>Dart</b> · Flutter</span>
+      <span><b>IA</b> · visão computacional · RAG</span>
+      <span><b>Dados</b> · PostgreSQL · Oracle · SQL Server</span>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat"><span class="n">13</span><span class="l">sistemas internos construídos</span></div>
+      <div class="stat"><span class="n">1.8k</span><span class="l">commits autorados nos repositórios do grupo</span></div>
+      <div class="stat"><span class="n">8</span><span class="l">plataformas de IA no ar, ponta a ponta</span></div>
+      <div class="stat"><span class="n">6</span><span class="l">camadas, do banco ao app</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── STACK ─────────────── -->
+<section id="stack">
+  <div class="wrap reveal">
+    <div class="eyebrow">stack</div>
+    <h2>As camadas em que<br>eu trabalho.</h2>
+    <p class="lede">
+      Da modelagem do banco à tela que o usuário abre, passando pelo modelo que roda na GPU
+      da sala ao lado. Cada camada com as ferramentas que eu de fato uso em produção.
+    </p>
+
+    <div class="grade-cards">
+      <article class="card-info">
+        <span class="num">01</span>
+        <h3>Backend</h3>
+        <p><em>Python · Django · DRF · FastAPI · Celery</em><br>API versionada, lógica no domínio e teste como parte da entrega.</p>
+      </article>
+      <article class="card-info">
+        <span class="num">02</span>
+        <h3>Dados</h3>
+        <p><em>PostgreSQL · Oracle · SQL Server · pgvector · Redis</em><br>Agregação no banco e modelagem antes da primeira tela.</p>
+      </article>
+      <article class="card-info">
+        <span class="num">03</span>
+        <h3>Frontend</h3>
+        <p><em>TypeScript · Next.js · Angular · Tailwind · shadcn/ui · PrimeNG</em><br>Interface com identidade travada em tokens, clara e escura no mesmo entregável.</p>
+      </article>
+      <article class="card-info">
+        <span class="num">04</span>
+        <h3>Mobile</h3>
+        <p><em>Dart · Flutter</em><br>Android e iOS a partir da mesma base, para quem trabalha longe da mesa.</p>
+      </article>
+      <article class="card-info">
+        <span class="num">05</span>
+        <h3>IA & Visão</h3>
+        <p><em>PyTorch · YOLO · InsightFace · RAG · modelos locais</em><br>Treino e inferência em GPU própria — dado sensível não sai da rede.</p>
+      </article>
+      <article class="card-info">
+        <span class="num">06</span>
+        <h3>Infra & Fluxo</h3>
+        <p><em>Docker · nginx · Caddy · CUDA em ARM · Azure DevOps</em><br>Do contêiner ao pipeline, com deploy on-premise quando o dado exige.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── GRAFO ─────────────── -->
+<section id="grafo">
+  <div class="wrap reveal">
+    <div class="eyebrow">grafo</div>
+    <h2>O mapa, não o currículo.</h2>
+    <p class="lede">
+      Sistemas e domínios técnicos como nós ligados: dá para ver de relance onde cada projeto
+      encosta. Arraste os nós, passe o mouse para isolar a vizinhança, clique para abrir o detalhe.
+    </p>
+
+    <div class="grafo-shell">
+      <div class="grafo-bar">
+        <button class="chip" data-filtro="tudo" aria-pressed="true">tudo</button>
+        <button class="chip" data-filtro="projeto" aria-pressed="false">projetos</button>
+        <button class="chip" data-filtro="dominio" aria-pressed="false">domínios</button>
+        <span class="grafo-hint">arraste · passe o mouse · clique</span>
+      </div>
+      <canvas id="grafo-canvas" role="img" aria-label="Grafo interativo dos sistemas e dos domínios técnicos"></canvas>
+      <aside class="grafo-info" id="grafo-info">
+        <p class="placeholder">Clique em um nó para ver o que ele é, o que resolve e qual foi o meu papel nele.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── PROJETOS ─────────────── -->
+<section id="projetos">
+  <div class="wrap reveal">
+    <div class="eyebrow">projetos</div>
+    <h2>O que eu construí —<br>e o quanto foi meu.</h2>
+    <p class="lede">
+      Sistemas corporativos internos, de código fechado. O selo de cada card vem do histórico de
+      commits, não de memória: onde eu conduzi e onde eu fui parte de um time.
+    </p>
+
+    <!-- Os cards são o HTML de verdade, não gerados por script: buscador,
+         leitor de tela e prévia de link precisam ver os projetos sem JS.
+         O grafo e o terminal leem daqui. -->
+    <div class="proj-grid" id="proj-grid">
+
+      <article class="proj" data-id="nexum" data-autoria="principal" data-liga="backend frontend dados seguranca">
+        <div class="proj-head"><h3>NTS-Nexum</h3><span class="selo selo-principal">autoria principal</span></div>
+        <p>Inventário de TI e telecom: equipamentos, chips corporativos e termo de responsabilidade assinado eletronicamente, por coligada e centro de custo. Alertas de ociosidade, controle de licenças e relatórios que exportam exatamente o que a tela mostra.</p>
+        <div class="techs"><span>Django</span><span>DRF</span><span>Next.js</span><span>PostgreSQL</span></div>
+      </article>
+
+      <article class="proj" data-id="approval" data-autoria="principal" data-liga="backend frontend mobile integra seguranca">
+        <div class="proj-head"><h3>Approval</h3><span class="selo selo-principal">autoria principal</span></div>
+        <p>Motor de solicitações e aprovações de compra que substitui o fluxo legado. A alçada decide quem aprova; o ERP segue como fonte da verdade e recebe apenas a decisão. Acesso com aparelho vinculado, PIN de aprovação e login por SSO corporativo.</p>
+        <div class="techs"><span>Django</span><span>Next.js</span><span>Flutter</span><span>JWT</span></div>
+      </article>
+
+      <article class="proj" data-id="observatory" data-autoria="principal" data-liga="ailab ia infra dados">
+        <div class="proj-head"><h3>AI Lab Observatory</h3><span class="selo selo-principal">autoria principal</span></div>
+        <p>Observabilidade da plataforma de IA: um proxy na frente do servidor de modelos enxerga toda inferência sem atrapalhar ninguém — se o observador cai, a inferência continua. Visualizador de conversa completa, login por sessão e painéis que cruzam atividade de entrega com adoção de IA.</p>
+        <div class="techs"><span>FastAPI</span><span>Caddy</span><span>pgvector</span><span>Docker</span></div>
+      </article>
+
+      <article class="proj" data-id="sentinel" data-autoria="principal" data-liga="ailab ia infra seguranca">
+        <div class="proj-head"><h3>Sentinel</h3><span class="selo selo-principal">autoria principal</span></div>
+        <p>Reconhecimento facial e contagem de pessoas em tempo real sobre câmeras: detecção e embedding facial, contagem e esqueleto por YOLO, viewer com sobreposição ao vivo e cadastro de identidades. Roda inteiro na rede interna — imagem de pessoa não sai do servidor.</p>
+        <div class="techs"><span>InsightFace</span><span>YOLO</span><span>FastAPI</span><span>Next.js</span></div>
+      </article>
+
+      <article class="proj" data-id="smartrack" data-autoria="principal" data-liga="ailab ia infra frontend">
+        <div class="proj-head"><h3>Smartrack.AI</h3><span class="selo selo-principal">autoria principal</span></div>
+        <p>Visão computacional para reconhecimento de instrumental cirúrgico: detecção e classificação treinadas em GPU ARM local, anotação assistida por modelo e frontend próprio de conferência.</p>
+        <div class="techs"><span>PyTorch</span><span>YOLO</span><span>CUDA</span><span>Next.js</span></div>
+      </article>
+
+      <article class="proj" data-id="ragportal" data-autoria="principal" data-liga="ailab ia dados frontend">
+        <div class="proj-head"><h3>RAG Portal</h3><span class="selo selo-principal">autoria principal</span></div>
+        <p>Base de conhecimento com busca semântica sobre a documentação da empresa: ingestão, embeddings em pgvector e portal de consulta com controle de acesso por usuário.</p>
+        <div class="techs"><span>Python</span><span>pgvector</span><span>Next.js</span><span>Ollama</span></div>
+      </article>
+
+      <article class="proj" data-id="agentes" data-autoria="principal" data-liga="ailab ia backend">
+        <div class="proj-head"><h3>Agentes</h3><span class="selo selo-principal">autoria principal</span></div>
+        <p>Duas frentes de agente rodando contra modelos locais: um autônomo local-first, sempre ligado, com memória em arquivo; e um multi-agente em Python servido como API, com times e fluxos.</p>
+        <div class="techs"><span>Python</span><span>FastAPI</span><span>Agno</span><span>OpenClaw</span></div>
+      </article>
+
+      <article class="proj" data-id="seclab" data-autoria="principal" data-liga="ailab seguranca ia">
+        <div class="proj-head"><h3>Sec Lab</h3><span class="selo selo-principal">autoria principal</span></div>
+        <p>Harness de teste de API e ensaio de segurança com IA local: escopo validado no servidor, aprovação humana obrigatória, kill-switch global e auditoria append-only. Rede ofensiva isolada por desenho.</p>
+        <div class="techs"><span>FastAPI</span><span>Schemathesis</span><span>Playwright</span></div>
+      </article>
+
+      <article class="proj" data-id="gateway" data-autoria="principal" data-liga="ailab infra">
+        <div class="proj-head"><h3>LLM Gateway</h3><span class="selo selo-principal">autoria principal</span></div>
+        <p>Uma porta única para todos os modelos: roteamento, TLS interno e serviço gerenciado. O cliente troca de modelo sem trocar de endereço, e o consumo fica medido num lugar só.</p>
+        <div class="techs"><span>LiteLLM</span><span>Caddy</span><span>systemd</span></div>
+      </article>
+
+      <article class="proj" data-id="mcps" data-autoria="principal" data-liga="ailab integra infra">
+        <div class="proj-head"><h3>MCPs para Azure DevOps</h3><span class="selo selo-principal">autoria principal</span></div>
+        <p>Servidores MCP próprios que ligam o agente ao Azure DevOps: repositório, comentários de pull request e work items. O agente lê o board e responde na revisão sem sair do fluxo.</p>
+        <div class="techs"><span>MCP</span><span>TypeScript</span><span>Azure DevOps</span></div>
+      </article>
+
+      <article class="proj" data-id="nortetrace" data-autoria="principal" data-liga="backend dados">
+        <div class="proj-head"><h3>NorteTrace</h3><span class="selo selo-principal">autoria principal</span></div>
+        <p>Rastreabilidade de processos ambientais — do registro em campo ao relatório que a fiscalização lê.</p>
+        <div class="techs"><span>Django</span><span>PostgreSQL</span></div>
+      </article>
+
+      <article class="proj" data-id="siscme" data-autoria="equipe" data-liga="backend frontend dados">
+        <div class="proj-head"><h3>SISCME</h3><span class="selo selo-equipe">em equipe</span></div>
+        <p>Central de Material Esterilizado usada nas unidades hospitalares: ciclo completo do instrumental, do recebimento à liberação. Sistema em produção com time dedicado — onde acumulei o maior volume de commits.</p>
+        <div class="techs"><span>Backend</span><span>Angular</span><span>Relatórios</span></div>
+      </article>
+
+      <article class="proj" data-id="scantrack" data-autoria="equipe" data-liga="backend frontend dados">
+        <div class="proj-head"><h3>Scantrack</h3><span class="selo selo-equipe">em equipe</span></div>
+        <p>Rastreabilidade por leitura RFID: coletor, totem e painel operando sobre o mesmo inventário físico.</p>
+        <div class="techs"><span>RFID</span><span>Angular</span><span>Backend</span></div>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────────────── TERMINAL ─────────────── -->
+<section id="terminal">
+  <div class="wrap reveal">
+    <div class="eyebrow">terminal</div>
+    <h2>Ou pergunte direto.</h2>
+    <p class="lede">
+      Um shell de verdade, com comandos de verdade. Digite <code>help</code> para começar.
+    </p>
+
+    <div class="term">
+      <div class="term-bar">
+        <i></i><i></i><i></i>
+        <span>nicolas@perfil — ~/</span>
+      </div>
+      <div class="term-body" id="term-body" tabindex="0">
+        <div class="term-line dim">Sessão iniciada. Digite <span class="cmd">help</span> para ver os comandos.</div>
+      </div>
+      <div style="padding: 0 1.1rem 1.1rem">
+        <div class="term-input-row">
+          <span class="ps1">$</span>
+          <input id="term-input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Entrada de comando">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p class="frase">A melhor linha de código<br>é a que não precisou existir.</p>
+  <div class="links">
+    <a href="https://github.com/NiguXNick">GitHub</a>
+    <a href="#grafo">Grafo</a>
+    <a href="#projetos">Projetos</a>
+  </div>
+  <div class="meta">
+    Nicolas Gustavo Neves Pinto · Tech Leader · Ciência da Computação<br>
+    Identidade visual <em>Obsidian</em> — tokens OKLCH governados pelo <code>DESIGN.md</code> deste repositório.
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   1. TEMA
+   ═══════════════════════════════════════════════════════════ */
+(function () {
+  const root = document.documentElement;
+  const btn = document.getElementById('theme-btn');
+  const salvo = localStorage.getItem('tema');
+  const inicial = salvo || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  aplicar(inicial);
+
+  btn.addEventListener('click', () => {
+    aplicar(root.dataset.theme === 'dark' ? 'light' : 'dark');
+  });
+
+  function aplicar(t) {
+    root.dataset.theme = t;
+    btn.textContent = t === 'dark' ? 'claro' : 'escuro';
+    localStorage.setItem('tema', t);
+    if (window.__grafoRepintar) window.__grafoRepintar();
+  }
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   2. DADOS — sistemas e domínios técnicos
+   ═══════════════════════════════════════════════════════════ */
+const DADOS = {
+  dominios: [
+    { id: 'backend',   label: 'Backend',      desc: 'Django e DRF como base. Modelo de dados primeiro, lógica no domínio, API versionada e testada.' },
+    { id: 'frontend',  label: 'Frontend',     desc: 'Next.js com shadcn/ui e Angular com PrimeNG. Tela que o usuário entende sem treinamento é requisito, não enfeite.' },
+    { id: 'mobile',    label: 'Mobile',       desc: 'Flutter para quem trabalha longe da mesa: aprovação no celular, coleta em campo, leitura de código no chão de operação.' },
+    { id: 'dados',     label: 'Dados',        desc: 'PostgreSQL, Oracle, SQL Server e pgvector. Agregação no banco, não na aplicação — o número da tela e o da planilha têm que bater.' },
+    { id: 'ia',        label: 'IA & Visão',   desc: 'Visão computacional, RAG e agentes rodando em GPU local. Modelo é meio; o produto é a decisão que ele habilita.' },
+    { id: 'ailab',     label: 'AI Lab',       desc: 'A plataforma de IA da empresa, construída por inteiro: modelos servidos localmente, agentes, observabilidade e os produtos que rodam em cima disso. Nada de dado sensível saindo da rede.' },
+    { id: 'infra',     label: 'Infra',        desc: 'Docker, nginx e Caddy, GPU ARM, deploy on-premise e em nuvem, pipeline no Azure DevOps.' },
+    { id: 'integra',   label: 'Integrações',  desc: 'ERP, service desk e sistemas próprios conversando. O dado é digitado uma vez e vale em todo lugar.' },
+    { id: 'seguranca', label: 'Segurança',    desc: 'Controle de acesso, autenticação forte e LGPD entram no desenho. Minimização de dado é decisão de arquitetura.' }
+  ],
+
+  // Os projetos são lidos dos cards que já estão no HTML — uma fonte só,
+  // visível sem JavaScript, sem risco de a lista e o grafo divergirem.
+  projetos: [...document.querySelectorAll('#proj-grid .proj')].map(el => ({
+    id: el.dataset.id,
+    label: el.querySelector('h3').textContent.trim(),
+    autoria: el.dataset.autoria,
+    desc: el.querySelector('p').textContent.trim(),
+    tech: [...el.querySelectorAll('.techs span')].map(s => s.textContent.trim()),
+    liga: el.dataset.liga.split(/\s+/)
+  }))
+};
+
+const SELOS = {
+  principal: { txt: 'autoria principal', cls: 'selo-principal' },
+  equipe:    { txt: 'em equipe',         cls: 'selo-equipe' },
+  pontual:   { txt: 'contribuição pontual', cls: 'selo-neutro' }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   3. GRAFO — simulação de força em canvas
+   ═══════════════════════════════════════════════════════════ */
+(function () {
+  const canvas = document.getElementById('grafo-canvas');
+  const ctx = canvas.getContext('2d');
+  const info = document.getElementById('grafo-info');
+  const reduzido = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── Monta nós e arestas a partir dos dados ──────────────
+  const nos = [];
+  const arestas = [];
+
+  nos.push({ id: 'eu', label: 'Nicolas', tipo: 'raiz', r: 26,
+             desc: 'Tech Leader e cientista da computação. Tudo abaixo sai daqui — arquitetura, decisão técnica e código.' });
+
+  DADOS.dominios.forEach(d => {
+    nos.push({ id: d.id, label: d.label, tipo: 'dominio', r: 17, desc: d.desc });
+    arestas.push(['eu', d.id]);
+  });
+
+  DADOS.projetos.forEach(p => {
+    nos.push({ id: p.id, label: p.label, tipo: 'projeto', r: p.autoria === 'principal' ? 14 : 11,
+               desc: p.desc, tech: p.tech, autoria: p.autoria });
+    p.liga.forEach(d => arestas.push([p.id, d]));
+  });
+
+  const porId = Object.fromEntries(nos.map(n => [n.id, n]));
+  const vizinhos = {};
+  nos.forEach(n => vizinhos[n.id] = new Set([n.id]));
+  arestas.forEach(([a, b]) => { vizinhos[a].add(b); vizinhos[b].add(a); });
+
+  // ── Posições iniciais: raiz no centro, resto em anéis ───
+  let L = 0, A = 0;
+  function dimensionar() {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const r = canvas.getBoundingClientRect();
+    L = r.width; A = r.height;
+    canvas.width = L * dpr; canvas.height = A * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  dimensionar();
+
+  nos.forEach((n, i) => {
+    if (n.tipo === 'raiz') { n.x = L / 2; n.y = A / 2; }
+    else {
+      const raio = n.tipo === 'dominio' ? Math.min(L, A) * 0.22 : Math.min(L, A) * 0.38;
+      const ang = (i / nos.length) * Math.PI * 2;
+      n.x = L / 2 + Math.cos(ang) * raio + (i % 7) * 3;
+      n.y = A / 2 + Math.sin(ang) * raio + (i % 5) * 3;
+    }
+    n.vx = 0; n.vy = 0;
+  });
+
+  // ── Estado de interação ─────────────────────────────────
+  let hover = null, selecionado = null, arrastando = null;
+  let filtro = 'tudo';
+  let energia = 1;
+
+  const visivel = n => filtro === 'tudo' || n.tipo === filtro || n.tipo === 'raiz'
+                    || (filtro !== 'dominio' && n.tipo === 'dominio');
+
+  // Paleta lida do CSS uma vez por tema, não por nó a cada quadro
+  let paleta = null;
+  function lerPaleta() {
+    const s = getComputedStyle(document.documentElement);
+    const p = k => s.getPropertyValue(k).trim();
+    paleta = {
+      primary: p('--primary'), fg: p('--fg'), mutedFg: p('--muted-fg'),
+      border: p('--border'), bgElev: p('--bg-elev')
+    };
+  }
+  lerPaleta();
+
+  function corDe(tipo, ativo) {
+    if (tipo === 'raiz') return paleta.primary;
+    if (tipo === 'dominio') return ativo ? paleta.primary : paleta.mutedFg;
+    if (tipo === 'projeto') return ativo ? paleta.primary : paleta.fg;
+    return paleta.mutedFg;
+  }
+
+  // ── Física: repulsão, molas, centro ─────────────────────
+  // A repulsão escala com a área disponível: sem isso, o mesmo valor que
+  // organiza o grafo em 1440px o espalha contra as bordas em 390px.
+  function passo() {
+    const centroX = L / 2, centroY = A / 2;
+    const escala = Math.max(0.45, Math.min(1.6, (L * A) / (820 * 520)));
+    const repulsao = 1900 * escala;
+    const tetoForca = 3.2;
+
+    for (let i = 0; i < nos.length; i++) {
+      const a = nos[i];
+      for (let j = i + 1; j < nos.length; j++) {
+        const b = nos[j];
+        let dx = b.x - a.x, dy = b.y - a.y;
+        let d2 = dx * dx + dy * dy;
+        if (d2 < 1) { d2 = 1; dx = (i % 2 ? 1 : -1) * 0.5; dy = (j % 2 ? 1 : -1) * 0.5; }
+        const d = Math.sqrt(d2);
+        const forca = Math.min(repulsao / d2, tetoForca);
+        const fx = (dx / d) * forca, fy = (dy / d) * forca;
+        a.vx -= fx; a.vy -= fy; b.vx += fx; b.vy += fy;
+      }
+    }
+
+    arestas.forEach(([ia, ib]) => {
+      const a = porId[ia], b = porId[ib];
+      const dx = b.x - a.x, dy = b.y - a.y;
+      const d = Math.hypot(dx, dy) || 1;
+      const raizEnvolvida = a.tipo === 'raiz' || b.tipo === 'raiz';
+      const alvo = (raizEnvolvida ? 112 : 76) * Math.sqrt(escala);
+      const f = (d - alvo) * 0.012;
+      const fx = (dx / d) * f, fy = (dy / d) * f;
+      a.vx += fx; a.vy += fy; b.vx -= fx; b.vy -= fy;
+    });
+
+    nos.forEach(n => {
+      const g = n.tipo === 'raiz' ? 0.04 : 0.008;
+      n.vx += (centroX - n.x) * g;
+      n.vy += (centroY - n.y) * g;
+      if (n === arrastando) { n.vx = 0; n.vy = 0; return; }
+      n.vx *= 0.85; n.vy *= 0.85;
+      n.x += n.vx; n.y += n.vy;
+      const m = n.r + 8;
+      n.x = Math.max(m, Math.min(L - m, n.x));
+      n.y = Math.max(m, Math.min(A - m, n.y));
+    });
+  }
+
+  // Assenta antes do primeiro quadro: o visitante encontra o grafo já
+  // organizado e a animação fica reservada para a interação dele.
+  function assentar(n) { for (let i = 0; i < n; i++) passo(); }
+
+  // ── Desenho ─────────────────────────────────────────────
+  function desenhar() {
+    ctx.clearRect(0, 0, L, A);
+    const borda = paleta.border, primary = paleta.primary,
+          bg = paleta.bgElev, fg = paleta.fg, mutedFg = paleta.mutedFg;
+
+    const foco = hover || selecionado;
+    const viz = foco ? vizinhos[foco.id] : null;
+
+    // arestas
+    arestas.forEach(([ia, ib]) => {
+      const a = porId[ia], b = porId[ib];
+      if (!visivel(a) || !visivel(b)) return;
+      const destaque = viz && viz.has(a.id) && viz.has(b.id);
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.strokeStyle = destaque ? primary : borda;
+      ctx.globalAlpha = foco ? (destaque ? 0.85 : 0.12) : 0.55;
+      ctx.lineWidth = destaque ? 1.6 : 1;
+      ctx.stroke();
+    });
+    ctx.globalAlpha = 1;
+
+    // nós
+    nos.forEach(n => {
+      if (!visivel(n)) return;
+      const ativo = !foco || viz.has(n.id);
+      ctx.globalAlpha = ativo ? 1 : 0.18;
+
+      if (n === foco || n.tipo === 'raiz') {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r + 9, 0, Math.PI * 2);
+        ctx.fillStyle = primary;
+        ctx.globalAlpha = ativo ? 0.14 : 0.05;
+        ctx.fill();
+        ctx.globalAlpha = ativo ? 1 : 0.18;
+      }
+
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      const preenche = n.tipo === 'raiz' || n === foco || n.tipo === 'projeto';
+      ctx.fillStyle = preenche ? corDe(n.tipo, true) : bg;
+      ctx.fill();
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = corDe(n.tipo, ativo);
+      ctx.stroke();
+
+      ctx.font = `${n.tipo === 'raiz' ? '600 13px' : '500 11px'} "IBM Plex Mono", monospace`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillStyle = n.tipo === 'raiz' ? fg : (ativo ? fg : mutedFg);
+      ctx.fillText(n.label, n.x, n.y + n.r + 6);
+      ctx.globalAlpha = 1;
+    });
+  }
+
+  function laco() {
+    if (energia > 0.02 || arrastando) {
+      passo();
+      if (!arrastando) energia *= 0.997;
+    }
+    desenhar();
+    requestAnimationFrame(laco);
+  }
+
+  // ── Interação ───────────────────────────────────────────
+  function noEm(x, y) {
+    for (let i = nos.length - 1; i >= 0; i--) {
+      const n = nos[i];
+      if (!visivel(n)) continue;
+      if (Math.hypot(n.x - x, n.y - y) <= n.r + 7) return n;
+    }
+    return null;
+  }
+
+  function posicao(e) {
+    const r = canvas.getBoundingClientRect();
+    const p = e.touches ? e.touches[0] : e;
+    return { x: p.clientX - r.left, y: p.clientY - r.top };
+  }
+
+  canvas.addEventListener('pointermove', e => {
+    const { x, y } = posicao(e);
+    if (arrastando) {
+      arrastando.x = x; arrastando.y = y;
+      energia = 1;
+      return;
+    }
+    const n = noEm(x, y);
+    if (n !== hover) { hover = n; canvas.style.cursor = n ? 'pointer' : 'grab'; }
+  });
+
+  canvas.addEventListener('pointerdown', e => {
+    const { x, y } = posicao(e);
+    const n = noEm(x, y);
+    if (n) { arrastando = n; canvas.setPointerCapture(e.pointerId); energia = 1; }
+  });
+
+  canvas.addEventListener('pointerup', e => {
+    const { x, y } = posicao(e);
+    const n = noEm(x, y);
+    if (n && arrastando === n) { selecionado = n; mostrar(n); }
+    arrastando = null;
+  });
+
+  canvas.addEventListener('pointerleave', () => { hover = null; arrastando = null; });
+
+  function mostrar(n) {
+    const tipoTxt = { raiz: 'ponto de partida', dominio: 'domínio técnico', projeto: 'projeto' }[n.tipo];
+    let selo = `<span class="selo selo-neutro">${tipoTxt}</span>`;
+    if (n.tipo === 'projeto') {
+      const s = SELOS[n.autoria];
+      selo = `<span class="selo ${s.cls}">${s.txt}</span>`;
+    }
+    info.innerHTML = `
+      ${selo}
+      <h3>${n.label}</h3>
+      <p>${n.desc}</p>
+      ${n.tech ? `<div class="techs">${n.tech.map(t => `<span>${t}</span>`).join('')}</div>` : ''}
+      ${n.tag ? `<div class="techs"><span>${n.tag}</span></div>` : ''}`;
+  }
+
+  // ── Filtros ─────────────────────────────────────────────
+  document.querySelectorAll('.chip[data-filtro]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.chip[data-filtro]').forEach(b => b.setAttribute('aria-pressed', 'false'));
+      btn.setAttribute('aria-pressed', 'true');
+      filtro = btn.dataset.filtro;
+      energia = 1;
+    });
+  });
+
+  let redimensionando;
+  addEventListener('resize', () => {
+    clearTimeout(redimensionando);
+    redimensionando = setTimeout(() => { dimensionar(); assentar(180); energia = 0.35; }, 120);
+  });
+  window.__grafoRepintar = () => { lerPaleta(); desenhar(); };
+
+  assentar(400);
+  energia = reduzido ? 0 : 0.25;
+  laco();
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   4. TERMINAL
+   ═══════════════════════════════════════════════════════════ */
+(function () {
+  const body = document.getElementById('term-body');
+  const input = document.getElementById('term-input');
+  const historico = [];
+  let hIdx = -1;
+
+  const esc = s => String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+
+  function escrever(html, cls = '') {
+    const div = document.createElement('div');
+    div.className = 'term-line ' + cls;
+    div.innerHTML = html;
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  const COMANDOS = {
+    help() {
+      escrever(`comandos disponíveis:
+
+  <span class="cmd">whoami</span>          quem eu sou, em três linhas
+  <span class="cmd">ls</span>              lista o que existe aqui
+  <span class="cmd">ls projetos</span>     projetos com selo de autoria
+  <span class="cmd">cat &lt;projeto&gt;</span>   detalhe de um projeto  <span class="dim">ex: cat sentinel</span>
+  <span class="cmd">stack</span>           tecnologias por camada
+  <span class="cmd">tema</span>            alterna claro e escuro
+  <span class="cmd">contato</span>         onde me achar
+  <span class="cmd">clear</span>           limpa a tela`);
+    },
+
+    whoami() {
+      escrever(`<span class="ok">nicolas</span> — tech leader · cientista da computação
+
+Construo os sistemas que uma empresa usa por dentro: o portal que substitui a
+planilha, a API que faz dois sistemas que nunca se falaram conversarem, o painel
+que transforma dado bruto em decisão.
+
+Conduzo projeto de ponta a ponta — arquitetura, decisão técnica e time — e
+continuo escrevendo o código.
+
+Backend é onde moro. Frontend é onde entrego. Produto é como penso.`);
+    },
+
+    ls(arg) {
+      if (!arg) {
+        escrever(`<span class="cmd">projetos/</span>   ${DADOS.projetos.length} sistemas internos
+<span class="cmd">stack.txt</span>   tecnologias por camada`);
+        return;
+      }
+      if (arg.startsWith('proj')) {
+        escrever(DADOS.projetos.map(p => {
+          const s = SELOS[p.autoria];
+          const cls = p.autoria === 'principal' ? 'ok' : (p.autoria === 'equipe' ? 'warn' : 'dim');
+          return `  <span class="cmd">${p.id.padEnd(12)}</span> ${p.label.padEnd(22)} <span class="${cls}">[${s.txt}]</span>`;
+        }).join('\n'));
+        escrever(`<span class="dim">use "cat &lt;id&gt;" para o detalhe</span>`);
+        return;
+      }
+      escrever(`ls: ${esc(arg)}: diretório não encontrado`, 'warn');
+    },
+
+    cat(arg) {
+      if (!arg) { escrever('cat: falta o argumento', 'warn'); return; }
+      const p = DADOS.projetos.find(x => x.id === arg || x.label.toLowerCase() === arg);
+      if (p) {
+        const s = SELOS[p.autoria];
+        escrever(`<span class="cmd">${p.label}</span>  <span class="ok">[${s.txt}]</span>
+
+${p.desc}
+
+<span class="dim">stack: ${p.tech.join(' · ')}</span>`);
+        return;
+      }
+      escrever(`cat: ${esc(arg)}: arquivo não encontrado`, 'warn');
+    },
+
+    stack() {
+      escrever(`<span class="cmd">backend</span>     Python · Django · DRF · FastAPI · Celery
+<span class="cmd">frontend</span>    TypeScript · Next.js · Angular · Tailwind · shadcn/ui · PrimeNG
+<span class="cmd">mobile</span>      Dart · Flutter
+<span class="cmd">dados</span>       PostgreSQL · Oracle · SQL Server · pgvector · Redis
+<span class="cmd">ia</span>          PyTorch · YOLO · InsightFace · RAG · modelos locais em GPU
+<span class="cmd">infra</span>       Docker · nginx · Caddy · CUDA em ARM · Azure DevOps`);
+    },
+
+    tema() {
+      document.getElementById('theme-btn').click();
+      escrever(`tema alterado para <span class="ok">${document.documentElement.dataset.theme === 'dark' ? 'escuro' : 'claro'}</span>`);
+    },
+
+    contato() {
+      escrever(`<span class="cmd">github</span>   <a href="https://github.com/NiguXNick" style="color:inherit">github.com/NiguXNick</a>`);
+    },
+
+    clear() { body.innerHTML = ''; }
+  };
+
+  const ALIASES = { '?': 'help', 'sobre': 'whoami', 'limpar': 'clear', 'projetos': 'ls projetos' };
+
+  function executar(linha) {
+    const bruto = linha.trim();
+    if (!bruto) return;
+    escrever(`<span class="cmd">$</span> ${esc(bruto)}`);
+    const expandido = ALIASES[bruto.toLowerCase()] || bruto;
+    const [cmd, ...resto] = expandido.toLowerCase().split(/\s+/);
+    const fn = COMANDOS[cmd];
+    if (fn) fn(resto.join(' '));
+    else escrever(`${esc(cmd)}: comando não encontrado. tente <span class="cmd">help</span>`, 'warn');
+  }
+
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const v = input.value;
+      if (v.trim()) { historico.push(v); hIdx = historico.length; }
+      executar(v);
+      input.value = '';
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (hIdx > 0) input.value = historico[--hIdx];
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (hIdx < historico.length - 1) input.value = historico[++hIdx];
+      else { hIdx = historico.length; input.value = ''; }
+    }
+  });
+
+  body.addEventListener('click', () => input.focus());
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   5. REVELAÇÃO AO ROLAR
+   ═══════════════════════════════════════════════════════════ */
+(function () {
+  const alvos = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { alvos.forEach(a => a.classList.add('in')); return; }
+  const obs = new IntersectionObserver(entradas => {
+    entradas.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  alvos.forEach(a => obs.observe(a));
+})();
+</script>
+
+</body>
+</html>
