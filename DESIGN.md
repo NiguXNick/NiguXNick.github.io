@@ -135,6 +135,28 @@ A identidade atravessa inteira — os tokens acima valem sem alteração. O que 
 - Painel abre sem animação. Só o grafo tem física própria.
 - Respeitar `prefers-reduced-motion: reduce` desligando animação e transição.
 
+### Exceção desta página
+
+A ficha acima descreve uma **ferramenta de trabalho**, onde movimento é atrito.
+Esta página é peça de apresentação: aqui o movimento carrega significado, e a
+regra é estendida — não abandonada. Os limites que valem:
+
+- **Duração e curva são token** (`--t-fast/--t-mid/--t-slow`, `--ease-out`,
+  `--ease-soft`). Nenhum tempo ou curva solto no componente, como nenhuma cor.
+- **Um momento orquestrado por seção**, não micro-animação espalhada: a entrada
+  do título em cascata, a grade revelando em série, o boot do terminal.
+- **Movimento contínuo só onde ele é o conteúdo** — os pulsos do grafo e a
+  deriva do brilho de fundo. Nada mais pisca sozinho.
+- **Movimento nunca é a única via**: todo conteúdo que entra animado existe no
+  HTML e reaparece por `<noscript>` e por `prefers-reduced-motion`.
+- **Nada de física em elemento de leitura** — sem paralaxe, sem rolagem
+  sequestrada, sem texto que se monta letra por letra fora do terminal.
+- **Elevação por `transform`, entrada por `translate`.** Uma animação com
+  `forwards` trava a propriedade que ela animou; misturar as duas mata o hover.
+
+Checklist extra desta página: `prefers-reduced-motion` verificado com a página
+inteira legível, e o canvas do grafo parado quando está fora da viewport.
+
 ## Nunca faça
 
 - Esconder a sintaxe markdown para “ficar limpo”
