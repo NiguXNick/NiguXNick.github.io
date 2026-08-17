@@ -101,27 +101,66 @@ body::before {
     linear-gradient(var(--grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid) 1px, transparent 1px);
   background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse 90% 55% at 50% 0%, #000 15%, transparent 62%);
   pointer-events: none;
   z-index: 0;
 }
-body::after {
-  content: "";
-  position: fixed; top: -30vh; left: 50%;
-  width: 120vw; height: 80vh;
-  background: radial-gradient(ellipse at center, var(--glow), transparent 62%);
-  pointer-events: none; z-index: 0;
-  /* Deriva lenta: o brilho respira em 26s, tempo longo o bastante para
-     dar vida sem virar movimento que se percebe conscientemente. */
-  animation: aurora 26s var(--ease-soft) infinite;
-}
-@keyframes aurora {
-  0%,100% { translate: -50% 0;      scale: 1;        opacity: 1; }
-  33%     { translate: -56% 3vh;    scale: 1.12 1.05; opacity: .82; }
-  66%     { translate: -44% -2vh;   scale: .94 1.1;   opacity: .95; }
+
+/* ════════════════════════════════════════════════════════════
+   FUNDO — nebulosa, malha em fuga, varredura
+   ════════════════════════════════════════════════════════════ */
+
+/* A nebulosa é pintada dentro do #fundo, não em CSS: quatro divs com
+   `filter: blur()` sobre a viewport inteira custavam 19fps contra 60. */
+#fundo, .varredura, .hud {
+  position: fixed; inset: 0; pointer-events: none;
 }
 
-main, header, footer { position: relative; z-index: 1; }
+#fundo { z-index: 0; width: 100%; height: 100%; }
+
+/* Vinheta + linhas de varredura + granulado por cima de tudo o que é fundo */
+.varredura {
+  z-index: 1;
+  background:
+    repeating-linear-gradient(0deg, oklch(0 0 0 / .05) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse 130% 85% at 50% 45%, transparent 52%, oklch(0 0 0 / .42));
+}
+:root[data-theme="light"] .varredura {
+  background:
+    repeating-linear-gradient(0deg, oklch(0.24 0.018 300 / .035) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse 130% 85% at 50% 45%, transparent 58%, oklch(0.24 0.018 300 / .12));
+}
+.varredura::after {
+  content: ""; position: absolute; inset: -60%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: .04; will-change: transform;
+  animation: granulado .7s steps(5) infinite;
+}
+:root[data-theme="light"] .varredura::after { opacity: .028; }
+@keyframes granulado {
+  0%   { transform: translate(0,0); }
+  20%  { transform: translate(-3%, 2%); }
+  40%  { transform: translate(2%, -3%); }
+  60%  { transform: translate(-2%, -2%); }
+  80%  { transform: translate(3%, 1%); }
+  100% { transform: translate(0,0); }
+}
+
+/* Cantos de HUD: quatro colchetes que enquadram a viewport */
+.hud { z-index: 1; }
+.hud i {
+  position: absolute; display: block; width: 26px; height: 26px;
+  border: 1px solid var(--primary); opacity: .28;
+  animation: hudPulso 4.5s var(--ease-soft) infinite;
+}
+.hud i:nth-child(1) { top: 4.6rem;  left: 1rem;  border-right: 0; border-bottom: 0; }
+.hud i:nth-child(2) { top: 4.6rem;  right: 1rem; border-left: 0;  border-bottom: 0; animation-delay: .4s; }
+.hud i:nth-child(3) { bottom: 1rem; left: 1rem;  border-right: 0; border-top: 0;    animation-delay: .8s; }
+.hud i:nth-child(4) { bottom: 1rem; right: 1rem; border-left: 0;  border-top: 0;    animation-delay: 1.2s; }
+@keyframes hudPulso { 0%,100% { opacity: .28; } 50% { opacity: .07; } }
+@media (max-width: 620px) { .hud { display: none; } }
+
+main, header, footer { position: relative; z-index: 2; }
 
 ::selection { background: var(--primary); color: var(--bg); }
 
@@ -617,6 +656,10 @@ footer .meta { width: 100%; font-size: .7rem; color: var(--muted-fg); padding-to
 
 <body>
 
+<canvas id="fundo" aria-hidden="true"></canvas>
+<div class="varredura" aria-hidden="true"></div>
+<div class="hud" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
 <div class="progresso" id="progresso" aria-hidden="true"></div>
 
 <header id="cabecalho">
@@ -912,6 +955,7 @@ footer .meta { width: 100%; font-size: .7rem; color: var(--muted-fg); padding-to
     btn.textContent = t === 'dark' ? 'claro' : 'escuro';
     localStorage.setItem('tema', t);
     if (window.__grafoRepintar) window.__grafoRepintar();
+    if (window.__fundoRepintar) window.__fundoRepintar();
   }
 })();
 
@@ -1665,6 +1709,315 @@ ${p.desc}
       });
     }, { threshold: 0.6 });
     numeros.forEach(n => obsNum.observe(n));
+  }
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   6. FUNDO — malha em fuga, campo de pontos e varredura
+   ═══════════════════════════════════════════════════════════ */
+(function () {
+  const canvas = document.getElementById('fundo');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  const REDUZIDO = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let W = 0, H = 0, dpr = 1, claro = false;
+  let rgb = [160, 108, 245];
+  const cor = a => `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${a})`;
+
+  // Canvas não aceita `oklch()` em todo navegador: pinto 1px com a cor do
+  // token e leio o RGB de volta. Se não parsear, fica o roxo do favicon.
+  function lerCor() {
+    claro = document.documentElement.dataset.theme === 'light';
+    const s = getComputedStyle(document.documentElement);
+    rgb = amostrar(s.getPropertyValue('--primary')) || rgb;
+    rgbOk = amostrar(s.getPropertyValue('--ok')) || rgbOk;
+  }
+
+  function amostrar(css) {
+    try {
+      const c = document.createElement('canvas'); c.width = c.height = 1;
+      const g = c.getContext('2d');
+      g.fillStyle = String(css).trim();
+      g.fillRect(0, 0, 1, 1);
+      const d = g.getImageData(0, 0, 1, 1).data;
+      if (d[3] > 0 && (d[0] || d[1] || d[2])) return [d[0], d[1], d[2]];
+    } catch (e) { /* fica o padrão */ }
+    return null;
+  }
+
+  // Horizonte baixo: a malha fica sendo chão no rodapé da viewport em vez
+  // de atravessar a faixa onde o texto é lido.
+  const HZ = 0.72;
+  const LINHAS_H = 18, LINHAS_V = 14;
+  let gradHalo = null, gradVarre = null;
+
+  function preparar() {
+    const hz = H * HZ;
+    gradHalo = ctx.createLinearGradient(0, hz - 90, 0, hz + 4);
+    gradHalo.addColorStop(0, cor(0));
+    gradHalo.addColorStop(1, cor(claro ? 0.055 : 0.13));
+
+    // Gradiente da faixa de varredura em coordenadas locais: desenho com
+    // translate em vez de recriar o gradiente a cada quadro.
+    gradVarre = ctx.createLinearGradient(0, 0, 0, 160);
+    gradVarre.addColorStop(0, cor(0));
+    gradVarre.addColorStop(0.5, cor(claro ? 0.04 : 0.075));
+    gradVarre.addColorStop(1, cor(0));
+  }
+
+  /* ── Nebulosa ──────────────────────────────────────────────
+     Quatro manchas pintadas num canvas de 200×126 e esticadas para a
+     viewport inteira. A interpolação do próprio escalonamento faz o
+     desfoque de graça — `filter: blur(64px)` em CSS derrubava a página
+     de 60 para 19 quadros por segundo. */
+  const NEB_L = 200, NEB_A = 126;
+  const bruma = document.createElement('canvas');
+  bruma.width = NEB_L; bruma.height = NEB_A;
+  const bctx = bruma.getContext('2d');
+
+  const MANCHAS = [
+    { x: 108, y: -6, r: 88, a: 0.85, vx: 0.000062, vy: 0.000041, amp: 26, f: 0.0,  verde: false },
+    { x: 14,  y: 52, r: 66, a: 0.50, vx: 0.000048, vy: 0.000067, amp: 22, f: 1.7,  verde: false },
+    { x: 190, y: 84, r: 58, a: 0.45, vx: 0.000071, vy: 0.000039, amp: 20, f: 3.1,  verde: false },
+    { x: 112, y: 132, r: 46, a: 0.20, vx: 0.000036, vy: 0.000055, amp: 24, f: 4.6, verde: true }
+  ];
+  let rgbOk = [90, 200, 150];
+
+  function nebulosa(t) {
+    bctx.clearRect(0, 0, NEB_L, NEB_A);
+    // No claro a mesma nebulosa deixa a página lavada de lilás: entra com
+    // menos de um terço da força que tem no escuro.
+    const forca = claro ? 0.15 : 0.60;
+    MANCHAS.forEach(m => {
+      const x = m.x + Math.sin(t * m.vx + m.f) * m.amp;
+      const y = m.y + Math.cos(t * m.vy + m.f) * m.amp * 0.62;
+      const r = m.r * (1 + Math.sin(t * m.vx * 1.7 + m.f) * 0.14);
+      const c = m.verde ? rgbOk : rgb;
+      const g = bctx.createRadialGradient(x, y, 0, x, y, r);
+      g.addColorStop(0, `rgba(${c[0]},${c[1]},${c[2]},${m.a * forca})`);
+      g.addColorStop(1, `rgba(${c[0]},${c[1]},${c[2]},0)`);
+      bctx.fillStyle = g;
+      bctx.fillRect(x - r, y - r, r * 2, r * 2);
+    });
+    ctx.drawImage(bruma, 0, 0, W, H);
+  }
+
+  /* ── Campo de pontos em três profundidades ─────────────── */
+  const CAMADAS = [
+    { qtd: 44, vel: 0.10, tam: [0.5, 1.0], alfa: 0.30, par: 8 },
+    { qtd: 28, vel: 0.24, tam: [0.9, 1.6], alfa: 0.45, par: 20 },
+    { qtd: 15, vel: 0.50, tam: [1.3, 2.3], alfa: 0.72, par: 42 }
+  ];
+  let pontos = [];
+
+  function semear() {
+    const densidade = Math.max(0.45, Math.min(1, (W * H) / (1440 * 900)));
+    pontos = [];
+    CAMADAS.forEach((c, ci) => {
+      const n = Math.round(c.qtd * densidade);
+      for (let i = 0; i < n; i++) {
+        pontos.push({
+          c: ci,
+          x: Math.random() * W,
+          y: Math.random() * H * HZ,
+          r: c.tam[0] + Math.random() * (c.tam[1] - c.tam[0]),
+          fase: Math.random() * Math.PI * 2,
+          dx: (Math.random() - 0.5) * c.vel,
+          dy: (Math.random() - 0.5) * c.vel * 0.5
+        });
+      }
+    });
+  }
+
+  function dimensionar() {
+    // Teto de 1.5 no DPR: acima disso o ganho visual num fundo difuso não
+    // paga o número de pixels a pintar por quadro.
+    dpr = Math.min(devicePixelRatio || 1, 1.5);
+    W = innerWidth; H = innerHeight;
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    preparar();
+    semear();
+  }
+
+  /* ── Traços de velocidade ──────────────────────────────── */
+  const tracos = [];
+  let proximoTraco = 900;
+
+  function nascerTraco() {
+    const paraDireita = Math.random() > 0.5;
+    tracos.push({
+      x: paraDireita ? -140 : W + 140,
+      y: 40 + Math.random() * (H * HZ - 60),
+      v: (paraDireita ? 1 : -1) * (0.55 + Math.random() * 0.75),
+      len: 90 + Math.random() * 190,
+      vida: 0
+    });
+  }
+
+  /* ── Desenho ───────────────────────────────────────────── */
+  function malha(fugaX, fluxo) {
+    const hz = H * HZ, prof = H - hz;
+    if (prof <= 4) return;
+
+    ctx.lineWidth = 1;
+
+    // horizontais: aceleram na direção da base, como chão passando por baixo
+    for (let i = 0; i < LINHAS_H; i++) {
+      const f = ((i / LINHAS_H) + fluxo) % 1;
+      const y = hz + prof * Math.pow(f, 2.5);
+      ctx.strokeStyle = cor((claro ? 0.06 : 0.13) * Math.min(1, f * 2.4));
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+    }
+
+    // verticais saindo todas do mesmo ponto de fuga
+    for (let j = -LINHAS_V; j <= LINHAS_V; j++) {
+      const t = j / LINHAS_V;
+      const xBase = fugaX + t * W * 2.1;
+      ctx.strokeStyle = cor((claro ? 0.05 : 0.10) * (1 - Math.abs(t) * 0.45));
+      ctx.beginPath(); ctx.moveTo(fugaX, hz); ctx.lineTo(xBase, H); ctx.stroke();
+    }
+
+    // halo acima do horizonte e a linha em si
+    ctx.fillStyle = gradHalo;
+    ctx.fillRect(0, hz - 90, W, 90);
+    // Linha do horizonte discreta: nítida demais, ela corta a linha de
+    // texto que estiver naquela altura. O halo é que dá a presença.
+    ctx.strokeStyle = cor(claro ? 0.09 : 0.20);
+    ctx.beginPath(); ctx.moveTo(0, hz); ctx.lineTo(W, hz); ctx.stroke();
+  }
+
+  function campo(t, dt, mx, my) {
+    const hz = H * HZ;
+    pontos.forEach(p => {
+      const c = CAMADAS[p.c];
+      if (!REDUZIDO) {
+        p.x += p.dx * dt * 0.06;
+        p.y += p.dy * dt * 0.06;
+        if (p.x < -20) p.x = W + 20; else if (p.x > W + 20) p.x = -20;
+        if (p.y < -20) p.y = hz + 20; else if (p.y > hz + 20) p.y = -20;
+      }
+      // Paralaxe: quanto mais perto, mais o ponto responde ao cursor.
+      p.px = p.x + mx * c.par;
+      p.py = p.y + my * c.par * 0.6;
+      const cintila = REDUZIDO ? 1 : 0.62 + 0.38 * Math.sin(t * 0.0016 + p.fase);
+      ctx.fillStyle = cor(c.alfa * cintila * (claro ? 0.42 : 1));
+      ctx.beginPath();
+      ctx.arc(p.px, p.py, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // Ligações só na camada da frente — o mesmo vocabulário do grafo,
+    // aqui reduzido a insinuação.
+    const frente = pontos.filter(p => p.c === 2);
+    ctx.lineWidth = 1;
+    for (let i = 0; i < frente.length; i++) {
+      for (let j = i + 1; j < frente.length; j++) {
+        const a = frente[i], b = frente[j];
+        const d = Math.hypot(a.px - b.px, a.py - b.py);
+        if (d > 165) continue;
+        ctx.strokeStyle = cor((1 - d / 165) * (claro ? 0.07 : 0.20));
+        ctx.beginPath(); ctx.moveTo(a.px, a.py); ctx.lineTo(b.px, b.py); ctx.stroke();
+      }
+    }
+  }
+
+  const SEG = 6;
+  function tracosDesenhar(dt) {
+    ctx.lineWidth = 1.2;
+    const base = claro ? 0.30 : 0.55;
+    for (let i = tracos.length - 1; i >= 0; i--) {
+      const s = tracos[i];
+      s.x += s.v * dt * 0.55;
+      const dir = Math.sign(s.v);
+      // A cauda esmaece em seis segmentos — mais barato que um gradiente
+      // novo por traço a cada quadro.
+      for (let k = 0; k < SEG; k++) {
+        ctx.strokeStyle = cor(base * (1 - k / SEG));
+        ctx.beginPath();
+        ctx.moveTo(s.x - dir * (s.len * k / SEG), s.y);
+        ctx.lineTo(s.x - dir * (s.len * (k + 1) / SEG), s.y);
+        ctx.stroke();
+      }
+      if (s.x < -420 || s.x > W + 420) tracos.splice(i, 1);
+    }
+  }
+
+  function varrer(t) {
+    // Faixa que desce a tela a cada 13s, como leitura de sensor.
+    const ciclo = 13000;
+    const y = -160 + ((t % ciclo) / ciclo) * (H + 320);
+    ctx.save();
+    ctx.translate(0, y);
+    ctx.fillStyle = gradVarre;
+    ctx.fillRect(0, 0, W, 160);
+    ctx.restore();
+  }
+
+  /* ── Laço ──────────────────────────────────────────────── */
+  let ultimo = 0, fluxo = 0;
+  let mx = 0, my = 0, mxAlvo = 0, myAlvo = 0;
+  let scrollAnt = scrollY, embalo = 0;
+
+  function quadro(t) {
+    const dt = Math.min(48, t - ultimo || 16);
+    ultimo = t;
+
+    if (!document.hidden) {
+      mx += (mxAlvo - mx) * 0.05;
+      my += (myAlvo - my) * 0.05;
+
+      // Rolar acelera a malha: o gesto da pessoa entra na cena.
+      const ds = scrollY - scrollAnt; scrollAnt = scrollY;
+      embalo = embalo * 0.88 + Math.abs(ds) * 0.12;
+      fluxo = (fluxo + dt * 0.000042 + embalo * 0.00019) % 1;
+
+      ctx.clearRect(0, 0, W, H);
+      nebulosa(t);
+      malha(W / 2 + mx * 55, fluxo);
+      campo(t, dt, mx, my);
+      tracosDesenhar(dt);
+      varrer(t);
+
+      proximoTraco -= dt;
+      if (proximoTraco <= 0 && tracos.length < 3) {
+        nascerTraco();
+        proximoTraco = 2200 + Math.random() * 4200;
+      }
+    }
+    requestAnimationFrame(quadro);
+  }
+
+  /* ── Entradas ──────────────────────────────────────────── */
+  if (matchMedia('(hover: hover)').matches) {
+    addEventListener('pointermove', e => {
+      mxAlvo = (e.clientX / innerWidth - 0.5) * 2;
+      myAlvo = (e.clientY / innerHeight - 0.5) * 2;
+    }, { passive: true });
+  }
+
+  let redim;
+  addEventListener('resize', () => {
+    clearTimeout(redim);
+    redim = setTimeout(dimensionar, 140);
+  }, { passive: true });
+
+  window.__fundoRepintar = () => { lerCor(); preparar(); };
+
+  lerCor();
+  dimensionar();
+
+  if (REDUZIDO) {
+    // Um quadro só: a cena existe, parada.
+    ctx.clearRect(0, 0, W, H);
+    nebulosa(0);
+    malha(W / 2, 0.35);
+    campo(0, 0, 0, 0);
+  } else {
+    requestAnimationFrame(quadro);
   }
 })();
 </script>
