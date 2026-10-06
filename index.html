@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Nicolas Neves — Tech Leader</title>
-<meta name="description" content="Tech Leader e cientista da computação. Sistemas internos, plataformas de IA e integrações — um grafo navegável dos sistemas que construí.">
+<title>Nicolas Neves | Tech Leader</title>
+<meta name="description" content="Tech Leader e cientista da computação. Sistemas internos, plataformas de IA e integrações. Um grafo navegável dos sistemas que construí.">
 <meta name="color-scheme" content="dark light">
 
-<meta property="og:title" content="Nicolas Neves — Tech Leader">
-<meta property="og:description" content="Tech Leader e cientista da computação. Sistemas internos, plataformas de IA e integrações — um grafo navegável dos sistemas que construí.">
+<meta property="og:title" content="Nicolas Neves | Tech Leader">
+<meta property="og:description" content="Tech Leader e cientista da computação. Sistemas internos, plataformas de IA e integrações. Um grafo navegável dos sistemas que construí.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://niguxnick.github.io/">
 
@@ -68,7 +68,7 @@
   --measure: 68ch;
   --pad: clamp(1.25rem, 5vw, 4.5rem);
 
-  /* Movimento — uma curva só para tudo que entra, outra para o que
+  /* Movimento: uma curva só para tudo que entra, outra para o que
      vai e volta. Duração é token: mudar aqui muda o site inteiro. */
   --ease-out:  cubic-bezier(.16, 1, .3, 1);
   --ease-soft: cubic-bezier(.4, 0, .2, 1);
@@ -107,7 +107,7 @@ body::before {
 }
 
 /* ════════════════════════════════════════════════════════════
-   FUNDO — nebulosa, malha em fuga, varredura
+   FUNDO: nebulosa, malha em fuga, varredura
    ════════════════════════════════════════════════════════════ */
 
 /* A nebulosa é pintada dentro do #fundo, não em CSS: quatro divs com
@@ -178,7 +178,7 @@ header {
               background var(--t-mid) var(--ease-soft),
               box-shadow var(--t-mid) var(--ease-soft);
 }
-/* Ao sair do topo a barra se compacta e ganha peso — o gesto de rolar
+/* Ao sair do topo a barra se compacta e ganha peso: o gesto de rolar
    fica com resposta visível, e o hero recupera altura. */
 header[data-scrolled] {
   padding-block: .55rem;
@@ -225,7 +225,7 @@ nav a:hover, nav a:focus-visible { color: var(--fg); }
 nav a[aria-current="true"] { color: var(--fg); }
 
 /* Pílula única que desliza para o item ativo em vez de acender e apagar
-   fundos independentes — a navegação passa a ter continuidade. */
+   fundos independentes: a navegação passa a ter continuidade. */
 .nav-pilula {
   position: absolute; top: 0; left: 0; height: 100%;
   border-radius: var(--radius); background: var(--muted);
@@ -239,7 +239,7 @@ nav a[aria-current="true"] { color: var(--fg); }
 @media (max-width: 780px) { nav a[data-optional] { display: none; } }
 
 /* Abaixo de 620px o header quebra em duas linhas e a navegação rola
-   na horizontal — sem isso o botão de tema é empurrado para fora da tela. */
+   na horizontal: sem isso o botão de tema é empurrado para fora da tela. */
 @media (max-width: 620px) {
   header { flex-wrap: wrap; row-gap: .45rem; }
   nav {
@@ -613,7 +613,7 @@ footer .meta { width: 100%; font-size: .7rem; color: var(--muted-fg); padding-to
 .grafo-info > *:nth-child(4) { animation-delay: .15s; }
 
 /* Troca de tema: o novo tema entra por um círculo que nasce no botão.
-   Só onde a View Transitions API existe — no resto, o crossfade dos
+   Só onde a View Transitions API existe: no resto, o crossfade dos
    tokens em background/color já resolve. */
 ::view-transition-old(root) { animation: none; }
 ::view-transition-new(root) {
@@ -689,7 +689,7 @@ footer .meta { width: 100%; font-size: .7rem; color: var(--muted-fg); padding-to
     <p class="hero-sub">
       O portal que substitui a planilha. A API que faz dois sistemas que nunca se falaram
       conversarem. O painel que transforma dado bruto em decisão.<br><br>
-      Cientista da computação, <strong>Tech Leader</strong> — conduzo projeto de ponta a ponta:
+      Cientista da computação, <strong>Tech Leader</strong>. Conduzo projeto de ponta a ponta:
       arquitetura, decisão técnica e time. E continuo escrevendo o código.<br><br>
       <strong>Backend é onde moro. Frontend é onde entrego. Produto é como penso.</strong>
     </p>
@@ -746,7 +746,7 @@ footer .meta { width: 100%; font-size: .7rem; color: var(--muted-fg); padding-to
       <article class="card-info">
         <span class="num">05</span>
         <h3>IA & Visão</h3>
-        <p><em>PyTorch · YOLO · InsightFace · RAG · modelos locais</em><br>Treino e inferência em GPU própria — dado sensível não sai da rede.</p>
+        <p><em>PyTorch · YOLO · InsightFace · RAG · modelos locais</em><br>Treino e inferência em GPU própria: dado sensível não sai da rede.</p>
       </article>
       <article class="card-info">
         <span class="num">06</span>
@@ -786,7 +786,7 @@ footer .meta { width: 100%; font-size: .7rem; color: var(--muted-fg); padding-to
 <section id="projetos">
   <div class="wrap reveal">
     <div class="eyebrow">projetos</div>
-    <h2>O que eu construí —<br>e o quanto foi meu.</h2>
+    <h2>O que eu construí<br>e o quanto foi meu.</h2>
     <p class="lede">
       Sistemas corporativos internos, de código fechado. O selo de cada card diz qual foi o meu
       papel: onde eu conduzi e onde eu fui parte de um time.
@@ -811,13 +811,13 @@ footer .meta { width: 100%; font-size: .7rem; color: var(--muted-fg); padding-to
 
       <article class="proj" data-id="observatory" data-autoria="principal" data-liga="ailab ia infra dados">
         <div class="proj-head"><h3>AI Lab Observatory</h3><span class="selo selo-principal">autoria principal</span></div>
-        <p>Observabilidade da plataforma de IA: um proxy na frente do servidor de modelos enxerga toda inferência sem atrapalhar ninguém — se o observador cai, a inferência continua. Visualizador de conversa completa, login por sessão e painéis que cruzam atividade de entrega com adoção de IA.</p>
+        <p>Observabilidade da plataforma de IA: um proxy na frente do servidor de modelos enxerga toda inferência sem atrapalhar ninguém: se o observador cai, a inferência continua. Visualizador de conversa completa, login por sessão e painéis que cruzam atividade de entrega com adoção de IA.</p>
         <div class="techs"><span>FastAPI</span><span>Caddy</span><span>pgvector</span><span>Docker</span></div>
       </article>
 
       <article class="proj" data-id="sentinel" data-autoria="principal" data-liga="ailab ia infra seguranca">
         <div class="proj-head"><h3>Sentinel</h3><span class="selo selo-principal">autoria principal</span></div>
-        <p>Reconhecimento facial e contagem de pessoas em tempo real sobre câmeras: detecção e embedding facial, contagem e esqueleto por YOLO, viewer com sobreposição ao vivo e cadastro de identidades. Roda inteiro na rede interna — imagem de pessoa não sai do servidor.</p>
+        <p>Reconhecimento facial e contagem de pessoas em tempo real sobre câmeras: detecção e embedding facial, contagem e esqueleto por YOLO, viewer com sobreposição ao vivo e cadastro de identidades. Roda inteiro na rede interna, e imagem de pessoa não sai do servidor.</p>
         <div class="techs"><span>InsightFace</span><span>YOLO</span><span>FastAPI</span><span>Next.js</span></div>
       </article>
 
@@ -859,7 +859,7 @@ footer .meta { width: 100%; font-size: .7rem; color: var(--muted-fg); padding-to
 
       <article class="proj" data-id="nortetrace" data-autoria="principal" data-liga="backend dados">
         <div class="proj-head"><h3>NorteTrace</h3><span class="selo selo-principal">autoria principal</span></div>
-        <p>Rastreabilidade de processos ambientais — do registro em campo ao relatório que a fiscalização lê.</p>
+        <p>Rastreabilidade de processos ambientais, do registro em campo ao relatório que a fiscalização lê.</p>
         <div class="techs"><span>Django</span><span>PostgreSQL</span></div>
       </article>
 
@@ -883,7 +883,7 @@ footer .meta { width: 100%; font-size: .7rem; color: var(--muted-fg); padding-to
 
       <article class="proj" data-id="siscme" data-autoria="equipe" data-liga="backend frontend dados">
         <div class="proj-head"><h3>SISCME</h3><span class="selo selo-equipe">em equipe</span></div>
-        <p>Central de Material Esterilizado usada nas unidades hospitalares: ciclo completo do instrumental, do recebimento à liberação. Sistema em produção com time dedicado — onde tive a maior participação.</p>
+        <p>Central de Material Esterilizado usada nas unidades hospitalares: ciclo completo do instrumental, do recebimento à liberação. Sistema em produção com time dedicado, onde tive a maior participação.</p>
         <div class="techs"><span>Backend</span><span>Angular</span><span>Relatórios</span></div>
       </article>
 
@@ -910,7 +910,7 @@ footer .meta { width: 100%; font-size: .7rem; color: var(--muted-fg); padding-to
     <div class="term">
       <div class="term-bar">
         <i></i><i></i><i></i>
-        <span>nicolas@perfil — ~/</span>
+        <span>nicolas@perfil: ~/</span>
       </div>
       <div class="term-body" id="term-body" tabindex="0">
         <div class="term-line dim">Sessão iniciada. Digite <span class="cmd">help</span> para ver os comandos.</div>
@@ -936,7 +936,7 @@ footer .meta { width: 100%; font-size: .7rem; color: var(--muted-fg); padding-to
   </div>
   <div class="meta">
     Nicolas Gustavo Neves Pinto · Tech Leader · Ciência da Computação<br>
-    Identidade visual <em>Obsidian</em> — tokens OKLCH governados pelo <code>DESIGN.md</code> deste repositório.
+    Identidade visual <em>Obsidian</em>, com tokens OKLCH governados pelo <code>DESIGN.md</code> deste repositório.
   </div>
 </footer>
 
@@ -955,7 +955,7 @@ footer .meta { width: 100%; font-size: .7rem; color: var(--muted-fg); padding-to
     const proximo = root.dataset.theme === 'dark' ? 'light' : 'dark';
     const reduzido = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // O novo tema entra por um círculo que nasce no próprio botão — a
+    // O novo tema entra por um círculo que nasce no próprio botão: a
     // origem da mudança fica visível em vez de a tela toda piscar.
     if (document.startViewTransition && !reduzido) {
       const r = btn.getBoundingClientRect();
@@ -977,14 +977,14 @@ footer .meta { width: 100%; font-size: .7rem; color: var(--muted-fg); padding-to
 })();
 
 /* ═══════════════════════════════════════════════════════════
-   2. DADOS — sistemas e domínios técnicos
+   2. DADOS: sistemas e domínios técnicos
    ═══════════════════════════════════════════════════════════ */
 const DADOS = {
   dominios: [
     { id: 'backend',   label: 'Backend',      desc: 'Django e DRF como base. Modelo de dados primeiro, lógica no domínio, API versionada e testada.' },
     { id: 'frontend',  label: 'Frontend',     desc: 'Next.js com shadcn/ui e Angular com PrimeNG. Tela que o usuário entende sem treinamento é requisito, não enfeite.' },
     { id: 'mobile',    label: 'Mobile',       desc: 'Flutter para quem trabalha longe da mesa: aprovação no celular, coleta em campo, leitura de código no chão de operação.' },
-    { id: 'dados',     label: 'Dados',        desc: 'PostgreSQL, Oracle, SQL Server e pgvector. Agregação no banco, não na aplicação — o número da tela e o da planilha têm que bater.' },
+    { id: 'dados',     label: 'Dados',        desc: 'PostgreSQL, Oracle, SQL Server e pgvector. Agregação no banco, não na aplicação: o número da tela e o da planilha têm que bater.' },
     { id: 'ia',        label: 'IA & Visão',   desc: 'Visão computacional, RAG e agentes rodando em GPU local. Modelo é meio; o produto é a decisão que ele habilita.' },
     { id: 'ailab',     label: 'AI Lab',       desc: 'A plataforma de IA da empresa, construída por inteiro: modelos servidos localmente, agentes, observabilidade e os produtos que rodam em cima disso. Nada de dado sensível saindo da rede.' },
     { id: 'infra',     label: 'Infra',        desc: 'Docker, nginx e Caddy, GPU ARM, deploy on-premise e em nuvem, pipeline no Azure DevOps.' },
@@ -992,7 +992,7 @@ const DADOS = {
     { id: 'seguranca', label: 'Segurança',    desc: 'Controle de acesso, autenticação forte e LGPD entram no desenho. Minimização de dado é decisão de arquitetura.' }
   ],
 
-  // Os projetos são lidos dos cards que já estão no HTML — uma fonte só,
+  // Os projetos são lidos dos cards que já estão no HTML: uma fonte só,
   // visível sem JavaScript, sem risco de a lista e o grafo divergirem.
   projetos: [...document.querySelectorAll('#proj-grid .proj')].map(el => ({
     id: el.dataset.id,
@@ -1011,7 +1011,7 @@ const SELOS = {
 };
 
 /* ═══════════════════════════════════════════════════════════
-   3. GRAFO — simulação de força em canvas
+   3. GRAFO: simulação de força em canvas
    ═══════════════════════════════════════════════════════════ */
 (function () {
   const canvas = document.getElementById('grafo-canvas');
@@ -1024,7 +1024,7 @@ const SELOS = {
   const arestas = [];
 
   nos.push({ id: 'eu', label: 'Nicolas', tipo: 'raiz', r: 26,
-             desc: 'Tech Leader e cientista da computação. Tudo abaixo sai daqui — arquitetura, decisão técnica e código.' });
+             desc: 'Tech Leader e cientista da computação. Tudo abaixo sai daqui: arquitetura, decisão técnica e código.' });
 
   DADOS.dominios.forEach(d => {
     nos.push({ id: d.id, label: d.label, tipo: 'dominio', r: 17, desc: d.desc });
@@ -1073,7 +1073,7 @@ const SELOS = {
   let naTela = true;      // fora da viewport o laço para de desenhar
 
   // ── Pulsos: partículas que caminham pelas arestas ───────
-  // Direção sempre convergente — o projeto alimenta o domínio, o domínio
+  // Direção sempre convergente: o projeto alimenta o domínio, o domínio
   // chega em mim. É a leitura do grafo virando movimento.
   const PULSOS = arestas.map(([a, b], i) => {
     const paraRaiz = a === 'eu' || b === 'eu';
@@ -1275,7 +1275,7 @@ const SELOS = {
     requestAnimationFrame(laco);
   }
 
-  // Fora da viewport o grafo não desenha — pulso contínuo em canvas gasta
+  // Fora da viewport o grafo não desenha: pulso contínuo em canvas gasta
   // bateria por nada quando ninguém está olhando.
   if ('IntersectionObserver' in window) {
     naTela = false;
@@ -1401,13 +1401,13 @@ const SELOS = {
     },
 
     whoami() {
-      escrever(`<span class="ok">nicolas</span> — tech leader · cientista da computação
+      escrever(`<span class="ok">nicolas</span> | tech leader · cientista da computação
 
 Construo os sistemas que uma empresa usa por dentro: o portal que substitui a
 planilha, a API que faz dois sistemas que nunca se falaram conversarem, o painel
 que transforma dado bruto em decisão.
 
-Conduzo projeto de ponta a ponta — arquitetura, decisão técnica e time — e
+Conduzo projeto de ponta a ponta (arquitetura, decisão técnica e time) e
 continuo escrevendo o código.
 
 Backend é onde moro. Frontend é onde entrego. Produto é como penso.`);
@@ -1482,7 +1482,7 @@ ${p.desc}
 
   /* ── Boot datilografado ───────────────────────────────────
      Roda uma vez, quando a seção entra em cena. Se a pessoa começa a
-     digitar antes do fim, o boot para no meio e devolve o prompt — a
+     digitar antes do fim, o boot para no meio e devolve o prompt: a
      animação nunca disputa o teclado com quem está usando. */
   let bootRodando = false, bootAbortado = false;
 
@@ -1555,7 +1555,7 @@ ${p.desc}
 })();
 
 /* ═══════════════════════════════════════════════════════════
-   5. MOVIMENTO — entrada, revelação, cascata e resposta ao cursor
+   5. MOVIMENTO: entrada, revelação, cascata e resposta ao cursor
    ═══════════════════════════════════════════════════════════ */
 (function () {
   const REDUZIDO = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1584,7 +1584,7 @@ ${p.desc}
   /* ── 5.3 Entrada da página ─────────────────────────────────
      Espera a fonte de display antes de soltar o título: animar linha
      mascarada com fonte substituta faz o texto pular no meio do gesto.
-     600ms é o teto — fonte lenta não trava a entrada. */
+     600ms é o teto: fonte lenta não trava a entrada. */
   const soltar = () => requestAnimationFrame(() => document.body.classList.add('pronto'));
   if (document.fonts && document.fonts.ready) {
     let soltou = false;
@@ -1670,7 +1670,7 @@ ${p.desc}
       }, { rootMargin: '-45% 0px -50% 0px' });
       secoes.forEach(s => espiao.observe(s));
 
-      // Acima da primeira seção nenhuma está ativa — a pílula recolhe.
+      // Acima da primeira seção nenhuma está ativa: a pílula recolhe.
       const primeira = secoes[0];
       if (primeira) {
         new IntersectionObserver(es => {
@@ -1730,7 +1730,7 @@ ${p.desc}
 })();
 
 /* ═══════════════════════════════════════════════════════════
-   6. FUNDO — malha em fuga, campo de pontos e varredura
+   6. FUNDO: malha em fuga, campo de pontos e varredura
    ═══════════════════════════════════════════════════════════ */
 (function () {
   const canvas = document.getElementById('fundo');
@@ -1787,7 +1787,7 @@ ${p.desc}
   /* ── Nebulosa ──────────────────────────────────────────────
      Quatro manchas pintadas num canvas de 200×126 e esticadas para a
      viewport inteira. A interpolação do próprio escalonamento faz o
-     desfoque de graça — `filter: blur(64px)` em CSS derrubava a página
+     desfoque de graça: `filter: blur(64px)` em CSS derrubava a página
      de 60 para 19 quadros por segundo. */
   const NEB_L = 200, NEB_A = 126;
   const bruma = document.createElement('canvas');
@@ -1927,7 +1927,7 @@ ${p.desc}
       ctx.fill();
     });
 
-    // Ligações só na camada da frente — o mesmo vocabulário do grafo,
+    // Ligações só na camada da frente: o mesmo vocabulário do grafo,
     // aqui reduzido a insinuação.
     const frente = pontos.filter(p => p.c === 2);
     ctx.lineWidth = 1;
@@ -1950,7 +1950,7 @@ ${p.desc}
       const s = tracos[i];
       s.x += s.v * dt * 0.55;
       const dir = Math.sign(s.v);
-      // A cauda esmaece em seis segmentos — mais barato que um gradiente
+      // A cauda esmaece em seis segmentos: mais barato que um gradiente
       // novo por traço a cada quadro.
       for (let k = 0; k < SEG; k++) {
         ctx.strokeStyle = cor(base * (1 - k / SEG));
